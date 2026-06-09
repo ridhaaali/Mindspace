@@ -6,21 +6,23 @@ export default function LoginPage() {
             <h1 className="text-3xl font-bold text-center">
                 Welcome Back
             </h1>
-            <input
-                type="email"
-                placeholder="Enter your email id"
-                className="w-full mt-6 p-3 border"
-            />
-            <input
-                type="password"
-                placeholder="Enter your password"
-                className="w-full mt-4 p-3 border">
-            </input>
-            <div className="flex justify-center mt-6">
-                <button className=" bg-fuchsia-200 text-black px-6 py-3 border border-b-black rounded-xl hover:bg-fuchsia-100">
-                    Login
-                </button>
-            </div>
+            <form>
+                <input
+                    type="email"
+                    placeholder="Enter your email id"
+                    className="w-full mt-6 p-3 border"
+                />
+                <input
+                    type="password"
+                    placeholder="Enter your password"
+                    className="w-full mt-4 p-3 border"
+                />
+                <div className="flex justify-center mt-6">
+                    <button className=" bg-fuchsia-200 text-black px-6 py-3 border border-b-black rounded-xl hover:bg-fuchsia-100">
+                        Login
+                    </button>
+                </div>
+            </form>
             <div className="mt-6 text-center">
                 <p>
                     Don&apos;t have an account?{" "}
