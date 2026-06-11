@@ -4,15 +4,18 @@ import Link from "next/link";
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword]=useState("");
-    console.log(email);
-    console.log(password);
+    function handleSubmit(event:React.FormEvent) {
+        event.preventDefault();
+
+        alert(email)
+    }
     return(
         <div className="min-h-screen flex items-center justify-center">
             <div className="w-full max-w-md p-8 border rounded-xl">
                 <h1 className="text-3xl font-bold text-center">
                     Welcome Back
                 </h1>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <input
                         type="email"
                         placeholder="Enter your email id"
