@@ -1,5 +1,5 @@
 "use client";
-import { use, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 export default function LoginPage() {
     const [email, setEmail] = useState("");
