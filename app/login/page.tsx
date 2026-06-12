@@ -1,13 +1,29 @@
 "use client";
-import { useState } from "react";
+import { use, useState } from "react";
 import Link from "next/link";
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword]=useState("");
+    const [error, setError]=useState("")
     function handleSubmit(event:React.FormEvent) {
         event.preventDefault();
 
-        alert(email)
+        if (!email && !password) {
+            setError("Email and password are required");
+            return;
+        }
+
+        if(!email){
+            setError("Email is required");
+            return;
+        }
+
+        if(!password){
+            setError("Password is required");
+            return;
+        }
+
+        setError("");
     }
     return(
         <div className="min-h-screen flex items-center justify-center">
@@ -28,6 +44,13 @@ export default function LoginPage() {
                         className="w-full mt-4 p-3 border"
                         onChange={(event) => setPassword(event.target.value)}
                     />
+                    {error && 
+                    (
+                        <p className="mt-3 text-red-500 text-sm">
+                        {error}
+                        </p>
+                    )
+                    }
                     <div className="flex justify-center mt-6">
                         <button type="submit" className=" bg-fuchsia-200 text-black px-6 py-3 border border-b-black rounded-xl hover:bg-fuchsia-100">
                             Login
