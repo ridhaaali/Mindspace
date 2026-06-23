@@ -1,4 +1,5 @@
 "use client";
+import { supabase } from "@/lib/supabase";
 import { useState } from "react";
 export default function SignupPage() {
     const [email, setEmail] = useState("");
@@ -6,7 +7,7 @@ export default function SignupPage() {
     const [name, setName] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");     
     const [error, setError]=useState("")
-    function handleSubmit(event:React.FormEvent) {
+    async function handleSubmit(event:React.FormEvent) {
         event.preventDefault();
 
         if(!name){
@@ -34,6 +35,18 @@ export default function SignupPage() {
             return;
         }
         setError("");
+        const { error } = await supabase.auth.signUp({
+            email,
+            password,
+        });
+
+        if (error) {
+            setError(error.message);
+            return;
+        }
+
+        alert("Account created successfully!");
+        setError("");
     }
     return(
         <div className="min-h-screen flex items-center justify-center">
@@ -43,7 +56,7 @@ export default function SignupPage() {
                 </h1>
                 <form onSubmit={handleSubmit}>
                     <input
-                        type="name"
+                        type="text"
                         placeholder="Enter your Name"
                         className="w-full mt-6 p-3 border"
                         onChange={(event) => setName(event.target.value)}
@@ -51,7 +64,7 @@ export default function SignupPage() {
                     <input
                         type="email"
                         placeholder="Enter your email id"
-                        className="w-full mt-6 p-3 border"
+                        className="w-full mt-4 p-3 border"
                         onChange={(event) => setEmail(event.target.value)}
                     />
                     <input

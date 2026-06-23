@@ -1,11 +1,14 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword]=useState("");
-    const [error, setError]=useState("")
-    function handleSubmit(event:React.FormEvent) {
+    const [error, setError]=useState("");
+    const router = useRouter();
+    async function handleSubmit(event:React.FormEvent) {
         event.preventDefault();
 
         if (!email && !password) {
@@ -24,6 +27,17 @@ export default function LoginPage() {
         }
 
         setError("");
+        const { error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+        });
+
+        if (error) {
+            setError(error.message);
+            return;
+        }
+
+        router.push("/dashboard");
     }
     return(
         <div className="min-h-screen flex items-center justify-center">
