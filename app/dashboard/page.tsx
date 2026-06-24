@@ -26,6 +26,18 @@ export default function Dashboard() {
   if (loading) {
     return <p>Loading...</p>;
   }
+  async function logout() {
+    await supabase.auth.signOut();
+    router.replace("/login");
+  }
 
-  return <h1>Dashboard</h1>;
+  return (
+    <>
+      <h1>Dashboard</h1>
+      <button onClick={logout}>
+        Logout
+      </button>
+    </>
+  );
+
 }

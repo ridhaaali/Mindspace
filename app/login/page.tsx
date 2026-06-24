@@ -3,11 +3,25 @@ import { useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword]=useState("");
     const [error, setError]=useState("");
     const router = useRouter();
+
+    useEffect(() => {
+    async function checkSession() {
+        const { data } = await supabase.auth.getSession();
+
+        if (data.session) {
+            router.replace("/dashboard");
+        }
+    }
+
+    checkSession();
+    }, [router]);
+
     async function handleSubmit(event:React.FormEvent) {
         event.preventDefault();
 

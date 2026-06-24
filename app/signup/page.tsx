@@ -1,12 +1,27 @@
 "use client";
 import { supabase } from "@/lib/supabase";
 import { useState } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 export default function SignupPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword]=useState("");
     const [name, setName] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");     
-    const [error, setError]=useState("")
+    const [error, setError]=useState("");
+    const router=useRouter();
+    
+    useEffect(() => {
+    async function checkSession() {
+        const { data } = await supabase.auth.getSession();
+
+        if (data.session) {
+            router.replace("/dashboard");
+        }
+    }
+
+    checkSession();
+    }, [router]);
     async function handleSubmit(event:React.FormEvent) {
         event.preventDefault();
 
